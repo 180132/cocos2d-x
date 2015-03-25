@@ -214,6 +214,19 @@ void OrbitCamera::update(float dt)
     setEye(i,j,k);
 }
 
+Follow* Follow::create(Node *followedNode, const Rect& rect/* = Rect::ZERO*/)
+{
+    Follow *follow = new (std::nothrow) Follow();
+    if (follow && follow->initWithTarget(followedNode, rect))
+    {
+        follow->autorelease();
+        return follow;
+    }
+    CC_SAFE_DELETE(follow);
+    return nullptr;
+}
+
+
 void OrbitCamera::sphericalRadius(float *newRadius, float *zenith, float *azimuth)
 {
     float r; // radius
